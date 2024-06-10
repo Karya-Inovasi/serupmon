@@ -3,7 +3,7 @@ Description=Serupmon Monitoring Service
 After=network.target
 
 [Service]
-ExecStart=/usr/local/bin/serupmon start -c /etc/serupmon/serupmon.hcl -p /etc/supermon
+ExecStart=/usr/local/bin/serupmon start --config /etc/serupmon/serupmon.hcl --prefix /etc/serupmon
 Restart=always
 RestartSec=5
 User=root

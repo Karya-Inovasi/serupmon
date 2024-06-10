@@ -2,24 +2,60 @@
 
 ### Installlation
 
-```bash
-# Debian/Ubuntu
-git clone https://github.com/karyainovasiab/serupmon.git
-cd serupmon
+Download the latest release from [here](https://github.com/karyainovasiab/serupmon/releases/latest) or use the installation script below.
 
-sudo dpkg -i dist/serupmon-1.1.0.deb
+```bash
+# curl
+curl -sSL https://raw.githubusercontent.com/karyainovasiab/serupmon/main/install.sh | bash -s install
+
+# wget
+wget -qO- https://raw.githubusercontent.com/karyainovasiab/serupmon/main/install.sh | bash -s install
 ```
 
 ### Usage
 
+Serupmon can be started using the serupmon binary itself or using the service manager (systemd on Linux).
+
+#### Using the binary
+
 ```bash
-sudo systemctl start serupmon
-sudo systemctl status serupmon
+serupmon -h # for help
+serupmon start --config /path/to/serupmon.hcl --prefix /path/to/prefix
+
+# example
+serupmon start --config /etc/serupmon/serupmon.hcl --prefix /tmp/serupmon
+serupmon start --config /home/user/serupmon.hcl --prefix /home/user/serupmon
 ```
+
+#### Using systemd
+
+Serupmon can be managed using systemd on Linux. The service file is included in the release.
+
+```bash
+sudo systemctl <start|stop|restart|status> serupmon
+
+# example
+sudo systemctl start serupmon
+
+# enable on boot
+sudo systemctl enable serupmon
+
+# view logs with journalctl
+journalctl -u serupmon
+```
+
+> The service file uses the default configuration file path `/etc/serupmon/serupmon.hcl` and the default prefix `/etc/serupmon`.
+
+> Prefix is the directory where the logs and pid files are stored.
 
 ### Configuration
 
+Serupmon uses a configuration file in HCL format. See the example below.
+
+> Documentation for the configuration file is coming soon.
+
 ```bash
+# example configuration file on Linux
 sudo nano /etc/serupmon/serupmon.hcl
 ```
 
@@ -85,3 +121,21 @@ monitor "server-1" {
 
 # add other monitors here...
 ```
+
+### Development
+
+Serupmon is written in Go and uses Go modules for dependency management. You can download the source code and build it yourself.
+
+```bash
+git clone https://github.com/karyainovasiab/serupmon.git
+cd serupmon
+go build
+```
+
+### License
+
+Serupmon is licensed under the MIT License. See the [LICENSE](https://github.com/karyainovasiab/serupmon/blob/main/LICENSE) file for more information.
+
+### Contributing
+
+This project is intended to be internal use only, but if you have any suggestions or improvements, feel free to open an issue or a pull request. We appreciate your feedback!
