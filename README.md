@@ -5,11 +5,24 @@
 Download the latest release from [here](https://github.com/karyainovasiab/serupmon/releases/latest) or use the installation script below.
 
 ```bash
-# curl
-curl -sSL https://raw.githubusercontent.com/karyainovasiab/serupmon/main/install.sh | bash -s install
+# using curl
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/karyainovasiab/serupmon/main/install.sh)"
 
-# wget
-wget -qO- https://raw.githubusercontent.com/karyainovasiab/serupmon/main/install.sh | bash -s install
+# using wget
+sh -c "$(wget https://raw.githubusercontent.com/karyainovasiab/serupmon/main/install.sh -O -)"
+
+# using fetch
+sh -c "$(fetch -o - https://raw.githubusercontent.com/karyainovasiab/serupmon/main/install.sh)"
+```
+
+TIP: You can also use the `install.sh` script to update/uninstall serupmon. Just pass the `update` or `uninstall` argument.
+
+```bash
+# update
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/karyainovasiab/serupmon/main/install.sh)" -- uninstall
+
+# uninstall
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/karyainovasiab/serupmon/main/install.sh)" -- update
 ```
 
 ### Usage

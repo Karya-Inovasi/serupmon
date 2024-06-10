@@ -13,13 +13,7 @@
 #
 # Usage:
 #   bash install.sh [install|update|uninstall]
-#
-# Default to install if no argument provided.
 
-# You can also run this script directly from the web by using the following command:
-# curl -sSL https://raw.githubusercontent.com/karyainovasiab/serupmon/main/install.sh | bash -s [install|update|uninstall]
-# wget -qO- https://raw.githubusercontent.com/karyainovasiab/serupmon/main/install.sh | bash -s [install|update|uninstall]
-# 
 
 NC='\033[0m'
 RED='\033[0;31m'
@@ -30,23 +24,23 @@ YELLOW='\033[0;33m'
 BOLD='\033[1m'
 
 ERROR () {
-    echo "${RED}${BOLD}$@${NC}"
+    printf "${RED}${BOLD}%s${NC}\n" "$@"
 }
 
 INFO () {
-    echo "${BLUE}${BOLD}$@${NC}"
+    printf "${BLUE}${BOLD}%s${NC}\n" "$@"
 }
 
 WARNING () {
-    echo "${YELLOW}${BOLD}$@${NC}"
+    printf "${YELLOW}${BOLD}%s${NC}\n" "$@"
 }
 
 RESULT () {
-    echo "${GREEN}${BOLD}=> $@${NC}"
+    printf "${GREEN}${BOLD}=> %s${NC}\n" "$@"
 }
 
 STEP () {
-    echo "${WHITE}${BOLD}=> $@${NC}"
+    printf "${WHITE}${BOLD}=> %s${NC}\n" "$@"
 }
 
 CONFIRM () {
@@ -87,13 +81,6 @@ cleanup() {
 
 # Trap SIGINT
 trap cleanup SIGINT
-
-if [ "$EUID" -eq 0 ]; then
-    ERROR "Please run this script as a normal user."
-    exit 1
-fi
-
-INFO "Serupmon - A simple uptime monitor for your services"
 
 detect_os() {
     if [ -f /etc/os-release ]; then
@@ -231,7 +218,7 @@ do_install() {
         fi
 
         # Check if install_path in PATH
-        if ! echo $PATH | grep -q $install_path; then
+        if ! printf $PATH | grep -q $install_path; then
             WARNING "The install path is not in your PATH. Do you want to add it now?"
             INFO "Please add the following line to your shell configuration file:"
             INFO "export PATH=\$PATH:$install_path"
@@ -256,7 +243,7 @@ do_install() {
 install_serupmon() {
     STEP "Starting the installation process..."
     sleep 1
-    echo ""
+    echo
 
     STEP "Detecting OS..."
     detect_os
@@ -282,7 +269,7 @@ install_serupmon() {
 update_serupmon() {
     STEP "Starting the update process..."
     sleep 1
-    echo ""
+    echo
 
     STEP "Detecting OS..."
     detect_os
@@ -310,7 +297,7 @@ update_serupmon() {
 uninstall_serupmon() {
     STEP "Starting the uninstallation process..."
     sleep 1
-    echo ""
+    echo
 
     STEP "Detecting OS..."
     detect_os
@@ -352,18 +339,29 @@ uninstall_serupmon() {
     RESULT "Serupmon has been uninstalled successfully."
 }
 
-# Main
-case $1 in
-    "install")
-        install_serupmon
-        ;;
-    "update")
-        update_serupmon
-        ;;
-    "uninstall")
-        uninstall_serupmon
-        ;;
-    *)
-        install_serupmon
-        ;;
-esac
+
+main() {
+    if [ "$EUID" -eq 0 ]; then
+        ERROR "Please run this script as a normal user."
+        exit 1
+    fi
+
+    INFO "Serupmon - A simple uptime monitor for your services"
+
+    case $1 in
+        "install")
+            install_serupmon
+            ;;
+        "update")
+            update_serupmon
+            ;;
+        "uninstall")
+            uninstall_serupmon
+            ;;
+        *)
+            install_serupmon
+            ;;
+    esac
+}
+
+main "$@"
