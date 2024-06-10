@@ -1,0 +1,7 @@
+# Serupmon
+
+## Installlation
+
+```
+# Debian/Ubuntu
+```

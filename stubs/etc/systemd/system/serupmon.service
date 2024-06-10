@@ -1,0 +1,13 @@
+[Unit]
+Description=Serupmon Monitoring Service
+After=network.target
+
+[Service]
+ExecStart=/usr/local/bin/serupmon start -c /etc/serupmon/serupmon.hcl -p /etc/supermon
+Restart=always
+RestartSec=5
+User=root
+Group=root
+
+[Install]
+WantedBy=multi-user.target
