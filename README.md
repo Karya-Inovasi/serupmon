@@ -4,7 +4,7 @@
 
 ```bash
 # Debian/Ubuntu
-git clone https://github.com/fatfatcocofat/serupmon.git
+git clone https://github.com/Karya-Inovasi/serupmon.git
 cd serupmon
 
 sudo dpkg -i dist/serupmon-1.1.0.deb
