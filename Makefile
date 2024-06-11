@@ -1,5 +1,5 @@
 snapshot:
-	goreleaser release --snapshot --skip-publish --rm-dist
+	goreleaser release --snapshot --clean
 
 release:
-	goreleaser release --rm-dist
+	goreleaser release --clean
