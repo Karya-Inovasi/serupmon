@@ -1,5 +1,7 @@
 # Serupmon
 
+[![Go](https://github.com/karyainovasiab/serupmon/actions/workflows/go.yml/badge.svg?branch=main)](https://github.com/karyainovasiab/serupmon/actions/workflows/go.yml)
+
 > A simple monitoring service that checks the status of various services and sends alerts.
 
 ### Installlation
