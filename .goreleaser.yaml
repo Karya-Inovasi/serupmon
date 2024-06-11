@@ -1,0 +1,87 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+# vim: set ts=2 sw=2 tw=0 fo=cnqoj
+
+version: 1
+
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - env:
+      - CGO_ENABLED=0
+
+    goos:
+      - linux
+      - windows
+      - darwin
+
+    goarch:
+      - amd64
+      - arm64
+
+archives:
+  - format: tar.gz
+    # this name template makes the OS and Arch compatible with the results of `uname`.
+    name_template: >-
+      {{ .ProjectName }}_
+      {{- title .Os }}_
+      {{- if eq .Arch "amd64" }}x86_64
+      {{- else if eq .Arch "386" }}i386
+      {{- else }}{{ .Arch }}{{ end }}
+      {{- if .Arm }}v{{ .Arm }}{{ end }}
+    # use zip for windows archives
+    format_overrides:
+      - goos: windows
+        format: zip
+
+nfpms:
+  - # nfpms
+    id: default
+    package_name: serupmon
+    description: |-
+      A simple monitoring service that checks the status of various services and sends alerts.
+    homepage: https://github.com/karyainovasiab/serupmon
+    maintainer: Fathurrohman <fathurrohmanrosyadi@gmail.com>
+    license: MIT
+    formats:
+      - deb
+      - apk
+    provides:
+      - serupmon
+    bindir: /usr/local/bin
+
+    contents:
+      - src: stubs/etc/serupmon/serupmon.hcl
+        dst: /etc/serupmon/serupmon.hcl
+        type: config
+
+      - src: stubs/etc/systemd/system/serupmon.service
+        dst: /etc/systemd/system/serupmon.service
+        type: config
+
+dockers:
+  - id: default
+    goos: linux
+    goarch: amd64
+    image_templates:
+      - "gcr.io/fathurrohman26/serupmon:latest"
+      - "gcr.io/fathurrohman26/serupmon:{{.Version}}"
+
+signs:
+  - artifacts: all
+    cmd: gpg
+    stdin: "{{ .Env.GPG_PASSWORD }}"
+
+release:
+  mode: replace
+  github:
+    name: serupmon
+    owner: karyainovasiab
+
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - "^docs:"
+      - "^test:"
