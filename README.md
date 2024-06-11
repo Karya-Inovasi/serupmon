@@ -1,18 +1,13 @@
 # Serupmon
 
+> A simple monitoring service that checks the status of various services and sends alerts.
+
 ### Installlation
 
 Download the latest release from [here](https://github.com/karyainovasiab/serupmon/releases/latest) or use the installation script below.
 
 ```bash
-# using curl
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/karyainovasiab/serupmon/main/install.sh)"
-
-# using wget
-sh -c "$(wget https://raw.githubusercontent.com/karyainovasiab/serupmon/main/install.sh -O -)"
-
-# using fetch
-sh -c "$(fetch -o - https://raw.githubusercontent.com/karyainovasiab/serupmon/main/install.sh)"
 ```
 
 TIP: You can also use the `install.sh` script to update/uninstall serupmon. Just pass the `update` or `uninstall` argument.
@@ -23,6 +18,17 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/karyainovasiab/serupmon/ma
 
 # uninstall
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/karyainovasiab/serupmon/main/install.sh)" -- update
+```
+
+### Docker Image
+
+The Docker image is available on Docker Hub at [fathurrohman26/serupmon](https://hub.docker.com/r/fathurrohman26/serupmon). You can pull the image using the following command:
+
+```bash
+docker pull fathurrohman26/serupmon
+
+# run the container
+docker run -d --name serupmon -v /path/to/config:/etc/serupmon -v /path/to/prefix:/tmp/serupmon fathurrohman26/serupmon
 ```
 
 ### Usage
