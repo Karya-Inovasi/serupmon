@@ -1,4 +1,4 @@
-module github.com/karyainovasi/serupmon
+module github.com/karyainovasiab/serupmon
 
 go 1.22.3
 

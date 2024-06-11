@@ -6,9 +6,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/karyainovasi/serupmon/config"
-	"github.com/karyainovasi/serupmon/monitor"
-	"github.com/karyainovasi/serupmon/service"
+	"github.com/karyainovasiab/serupmon/config"
+	"github.com/karyainovasiab/serupmon/monitor"
+	"github.com/karyainovasiab/serupmon/service"
 	"github.com/urfave/cli/v2"
 )
 

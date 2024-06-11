@@ -7,7 +7,7 @@ import (
 	"sync"
 	"time"
 
-	"github.com/karyainovasi/serupmon/notifier"
+	"github.com/karyainovasiab/serupmon/notifier"
 )
 
 type MonitorType string
